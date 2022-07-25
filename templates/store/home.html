@@ -6,6 +6,22 @@
 
 {% block content %} 
 
-    Still the homepage beatch
+    <section>
+        <h2>Our incredible collection of books!</h2>
+    </section>
+
+    <section>
+        {% for product in products %}
+            <div class="card">
+                <img class="card-image" src="{{ product.image.url }}" alt="book image">
+                <div class="card-body">
+                    <p class="card-text">
+                        <a href="">{{ product.title }}</a>
+                    </p>
+                </div>
+            </div>
+        {% endfor %}
+    </section>
+
 
 {% endblock %}

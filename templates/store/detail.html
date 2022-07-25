@@ -1,0 +1,17 @@
+{% extends "./base.html" %}
+
+{% load static %}
+
+{% block title %} Details {% endblock %}
+
+{% block content %} 
+
+    <div>
+        <img src="{{ product.image.url }}" alt="book image">
+        <h2>{{ product.title }}</h2>
+        <span>By: {{ product.author }}</span>
+        <p>{{ product.description }}</p>
+        <span>Buy now for just {{ product.price }}</span>
+    </div>
+
+{% endblock %}
