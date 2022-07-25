@@ -1,0 +1,38 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} {% endblock %}</title>
+
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+
+    <header>
+        <a href="#">BookStore</a>
+        <nav>
+            <li><a href="">One</a></li>
+            <li><a href="">Two</a></li>
+            <ul class="dropdown">
+                <a href="#">Library</a>
+                <ul class="dropdown-items">
+                    <li><a href="">All</a></li>
+                    {% for c in categories %}
+                    <li><a href="#">{{ c.name|title }}</a></li>
+                    {% endfor %}
+                </ul>
+            </ul>
+        </nav>
+        <a href="#">Sign Up</a>
+    </header>
+
+
+
+    <main>{% block content %} {% endblock %}</main>
+    
+</body>
+</html>
