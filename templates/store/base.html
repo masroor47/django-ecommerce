@@ -15,14 +15,14 @@
     <header>
         <a href="#">BookStore</a>
         <nav>
-            <li><a href="">One</a></li>
+            <li><a href="{% url 'store:all_products' %}">Home</a></li>
             <li><a href="">Two</a></li>
             <ul class="dropdown">
                 <a href="#">Library</a>
                 <ul class="dropdown-items">
                     <li><a href="">All</a></li>
                     {% for c in categories %}
-                    <li><a href="#">{{ c.name|title }}</a></li>
+                    <li><a href="{{ c.get_absolute_url }}">{{ c.name|title }}</a></li>
                     {% endfor %}
                 </ul>
             </ul>
