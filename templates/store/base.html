@@ -6,17 +6,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %} {% endblock %}</title>
+    <title>{% block title %} Book Store{% endblock %}</title>
 
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
 
     <header>
-        <a href="#">BookStore</a>
+        <a href="{% url 'store:product_all' %}">BookStore</a>
         <nav>
-            <li><a href="{% url 'store:all_products' %}">Home</a></li>
-            <li><a href="">Two</a></li>
+
             <ul class="dropdown">
                 <a href="#">Library</a>
                 <ul class="dropdown-items">

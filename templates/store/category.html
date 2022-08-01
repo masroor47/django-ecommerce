@@ -2,9 +2,13 @@
 
 {% load static %}
 
-{% block title %} Home {% endblock %}
+{% block title %} 
+{% if category %} {{ category.name|title}} {% else %} {{ Products }} {% endif %} 
+{% endblock %}
 
 {% block content %}
+
+{% comment %} Page that shows all of the books of the ___ category {% endcomment %}
 
     <section>
         <h2>{{category.name|capfirst}} Category</h2>

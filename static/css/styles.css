@@ -19,6 +19,10 @@ nav {
     align-items: center;
 }
 
+a {
+    text-decoration: none;
+}
+
 nav li {
     padding: 10px;
 }
