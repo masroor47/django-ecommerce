@@ -13,20 +13,18 @@
 </head>
 <body>
 
-    <header class="flex">
+    <header class="flex justify-between items-center bg-blue-200">
         <a href="{% url 'store:product_all' %}">BookStore</a>
-        <nav>
 
-            <ul class="dropdown">
+            <ul class="flex flex-col items-center">
                 <a href="#">Library</a>
-                <ul class="dropdown-items">
-                    <li><a href="">All</a></li>
+                <ul class="flex">
+                    <li class="p-4"><a href="">All</a></li>
                     {% for c in categories %}
-                    <li><a href="{{ c.get_absolute_url }}">{{ c.name|title }}</a></li>
+                    <li class="p-4"><a href="{{ c.get_absolute_url }}">{{ c.name|title }}</a></li>
                     {% endfor %}
                 </ul>
             </ul>
-        </nav>
         <div>
             <a href="#">Sign Up</a>
             <a href="{% url 'cart:cart_summary' %}">Cart</a>
