@@ -8,21 +8,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %} Book Store{% endblock %}</title>
 
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 </head>
 <body>
 
-    <header>
+    <header class="flex justify-between items-center">
         <a href="{% url 'store:product_all' %}">BookStore</a>
-        <nav>
+        <nav class="flex items-center">
 
-            <ul class="dropdown">
+            <ul class="flex flex-col items-center">
                 <a href="#">Library</a>
-                <ul class="dropdown-items">
-                    <li><a href="">All</a></li>
+                <ul class="flex">
+                    <li class="p-8"><a href="">All</a></li>
                     {% for c in categories %}
-                    <li><a href="{{ c.get_absolute_url }}">{{ c.name|title }}</a></li>
+                    <li class="p-8"><a href="{{ c.get_absolute_url }}">{{ c.name|title }}</a></li>
                     {% endfor %}
                 </ul>
             </ul>
