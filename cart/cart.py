@@ -1,5 +1,5 @@
-
-
+from store.models import Product
+from decimal import Decimal
 
 
 class Cart():
@@ -23,3 +23,25 @@ class Cart():
             }
 
         self.session.modified = True
+
+    def __iter__(self):
+        product_ids = self.cart.keys()
+        products = Product.products.filter(id__in=product_ids)
+        cart = self.cart.copy()
+
+        for product in products:
+            cart[str(product.id)]['product'] = product
+
+        for item in cart.values():
+            item['price'] = Decimal(item['price'])
+            item['total_price'] = item['price'] * item['qty']
+            yield item
+
+
+
+    def __len__(self):
+        '''
+        Get cart data and count the qty of items
+        '''
+
+        return sum(item['qty'] for item in self.cart.values())

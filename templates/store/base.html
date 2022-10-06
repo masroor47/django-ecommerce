@@ -27,7 +27,21 @@
             </ul>
         <div>
             <a href="#">Sign Up</a>
-            <a href="{% url 'cart:cart_summary' %}">Cart</a>
+            
+            <a href="{% url 'cart:cart_summary' %}">
+
+                {% with total_qty=cart|length %}
+                    <div id="cart-qty">
+                        {% if total_qty > 0 %}
+                            {{ total_qty }}
+                        {% else %}
+                            0
+                        {% endif %}
+                    </div>
+                {% endwith %}
+                
+                Cart
+            </a>
         </div>
     </header>
 

@@ -38,6 +38,7 @@
             },
 
             success: function (json) {
+                document.querySelector("#cart-qty").innerHTML = json.qty
 
             },
             error: function(xhr, errmsg, err) {}

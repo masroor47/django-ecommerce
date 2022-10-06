@@ -14,7 +14,7 @@
         {% for product in products %}
             <div class="">
                 <img class="" src="{{ product.image.url }}" alt="book image">
-                <div class="">
+                <div class="flex">
                     <p class="">
                         <a href="{{ product.get_absolute_url }}">{{ product.title }}</a>
                     </p>

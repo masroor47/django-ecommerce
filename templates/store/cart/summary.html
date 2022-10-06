@@ -6,7 +6,40 @@
 
 {% block content %}
 
-Your Cart my man
+<main>
+
+    <div>
+        <h1>Shopping Cart</h1>
+        {% for item in cart %}
+        {% with product=item.product %}
+            <div>
+                <img width="120px" src="{{ product.image.url }}">
+                <h2>{{ product.title }}</h2>
+                <span>{{ product.author }}</span>
+                <p>{{ product.description }}</p>
+
+                <label for="select">Qty</label>
+                <select id="select">
+                    <option selected>{{item.qty}}</option>
+                    <option value="">1</option>
+                    <option value="">2</option>
+                    <option value="">3</option>
+                    <option value="">4</option>
+                </select>
+
+                <div>Quantity: <span>{{ item.qty }}</span></div>
+                <div>Total: <span>{{ item.total_price }}</span></div>
+                
+
+                <button type="button" id="add-button" value="{{product.id}}">Update</button>
+                <button type="button" id="delete-button" value="{{product.id}}">Delete</button>
+            </div>
+        {% endwith %}
+        {% endfor %}
+        <div>Sub Total: $<span id="subtotal">{{ cart.get_total_price }}</span></div>
+    </div>
+</main>
+
 
 
 {% endblock %}
