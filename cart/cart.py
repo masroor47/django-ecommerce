@@ -32,6 +32,13 @@ class Cart():
             del self.cart[product_id]
         self.save()
     
+    def update(self, product, qty):
+        product_id = str(product)
+
+        if product_id in self.cart:
+            self.cart[product_id]['qty'] = qty
+
+        self.save()
 
     def __iter__(self):
         product_ids = self.cart.keys()

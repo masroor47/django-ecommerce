@@ -19,7 +19,7 @@
                 <p>{{ product.description }}</p>
 
                 <label for="select">Qty</label>
-                <select id="select">
+                <select id="select{{product.id}}">
                     <option selected>{{item.qty}}</option>
                     <option value="">1</option>
                     <option value="">2</option>
@@ -27,11 +27,11 @@
                     <option value="">4</option>
                 </select>
 
-                <div>Quantity: <span>{{ item.qty }}</span></div>
-                <div>Total: $<span>{{ item.total_price }}</span></div>
+                {% comment %} <div>Quantity: <span>{{ item.qty }}</span></div> {% endcomment %}
+                <div>Price: $<span>{{ product.price }}</span></div>
                 
 
-                <button type="button" id="add-button" value="{{product.id}}">Update</button>
+                <button type="button" id="update-button" data-index="{{product.id}}" class="update-button">Update</button>
                 <button type="button" id="delete-button" data-index="{{product.id}}" class="delete-button">Delete</button>
             </div>
         {% endwith %}
@@ -56,6 +56,30 @@
             success: function (json) {
 
                 $('.product-item[data-index="' + prodid + '"]').remove();
+                document.querySelector('#cart-qty').innerHTML = json.qty
+                document.querySelector('#subtotal').innerHTML = json.subtotal
+            },
+            error: function(xhr, errmsg, err) {}
+        });
+    })
+
+    $(document).on('click', '.update-button', function (e) {
+        e.preventDefault();
+        var prodid = $(this).data('index');
+        $.ajax({
+            type: 'POST',
+            url: '{% url "cart:cart_update" %}',
+            data: {
+                productid: $(this).data('index'),
+                productqty: $('#select' + prodid + ' option:selected').text(),
+                csrfmiddlewaretoken: "{{csrf_token}}",
+                action: 'post'
+            },
+
+            success: function (json) {
+                document.querySelector('#cart-qty').innerHTML = json.qty
+                document.querySelector('#subtotal').innerHTML = json.subtotal
+                
             },
             error: function(xhr, errmsg, err) {}
         });
