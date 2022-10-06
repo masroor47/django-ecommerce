@@ -22,7 +22,16 @@ class Cart():
                 'qty': int(qty)
             }
 
-        self.session.modified = True
+        self.save()
+    
+    # product is the id of the product
+    def delete(self, product):
+        product_id = str(product)
+
+        if product_id in self.cart:
+            del self.cart[product_id]
+        self.save()
+    
 
     def __iter__(self):
         product_ids = self.cart.keys()
@@ -45,3 +54,10 @@ class Cart():
         '''
 
         return sum(item['qty'] for item in self.cart.values())
+
+    def get_total_price(self):
+        return sum(Decimal(item['price']) * item['qty'] for item in self.cart.values())
+        
+
+    def save(self):
+        self.session.modified = True

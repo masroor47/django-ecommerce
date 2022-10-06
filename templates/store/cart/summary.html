@@ -28,11 +28,11 @@
                 </select>
 
                 <div>Quantity: <span>{{ item.qty }}</span></div>
-                <div>Total: <span>{{ item.total_price }}</span></div>
+                <div>Total: $<span>{{ item.total_price }}</span></div>
                 
 
                 <button type="button" id="add-button" value="{{product.id}}">Update</button>
-                <button type="button" id="delete-button" value="{{product.id}}">Delete</button>
+                <button type="button" id="delete-button" data-index="{{product.id}}" class="delete-button">Delete</button>
             </div>
         {% endwith %}
         {% endfor %}
@@ -40,6 +40,24 @@
     </div>
 </main>
 
+<script>
+    $(document).on('click', '.delete-button', function (e) {
+        e.preventDefault();
+        $.ajax({
+            type: 'POST',
+            url: '{% url "cart:cart_delete" %}',
+            data: {
+                productid: $(this).data('index'),
+                csrfmiddlewaretoken: "{{csrf_token}}",
+                action: 'post'
+            },
 
+            success: function (json) {
+
+            },
+            error: function(xhr, errmsg, err) {}
+        });
+    })
+</script>
 
 {% endblock %}
