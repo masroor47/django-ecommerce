@@ -1,0 +1,89 @@
+{% extends "../store/base.html" %}
+
+{% load static %}
+
+{% block title %} Cart Summary {% endblock %}
+
+{% block content %}
+
+<main>
+
+    <div>
+        <h1>Shopping Cart</h1>
+        {% for item in cart %}
+        {% with product=item.product %}
+            <div data-index="{{product.id}}" class="product-item">
+                <img width="120px" src="{{ product.image.url }}">
+                <h2>{{ product.title }}</h2>
+                <span>{{ product.author }}</span>
+                <p>{{ product.description }}</p>
+
+                <label for="select">Qty</label>
+                <select id="select{{product.id}}">
+                    <option selected>{{item.qty}}</option>
+                    <option value="">1</option>
+                    <option value="">2</option>
+                    <option value="">3</option>
+                    <option value="">4</option>
+                </select>
+
+                {% comment %} <div>Quantity: <span>{{ item.qty }}</span></div> {% endcomment %}
+                <div>Price: $<span>{{ product.price }}</span></div>
+                
+
+                <button type="button" id="update-button" data-index="{{product.id}}" class="update-button">Update</button>
+                <button type="button" id="delete-button" data-index="{{product.id}}" class="delete-button">Delete</button>
+            </div>
+        {% endwith %}
+        {% endfor %}
+        <div>Sub Total: $<span id="subtotal">{{ cart.get_total_price }}</span></div>
+    </div>
+</main>
+
+<script>
+    $(document).on('click', '.delete-button', function (e) {
+        e.preventDefault();
+        var prodid = $(this).data('index');
+        $.ajax({
+            type: 'POST',
+            url: '{% url "cart:cart_delete" %}',
+            data: {
+                productid: $(this).data('index'),
+                csrfmiddlewaretoken: "{{csrf_token}}",
+                action: 'post'
+            },
+
+            success: function (json) {
+
+                $('.product-item[data-index="' + prodid + '"]').remove();
+                document.querySelector('#cart-qty').innerHTML = json.qty
+                document.querySelector('#subtotal').innerHTML = json.subtotal
+            },
+            error: function(xhr, errmsg, err) {}
+        });
+    })
+
+    $(document).on('click', '.update-button', function (e) {
+        e.preventDefault();
+        var prodid = $(this).data('index');
+        $.ajax({
+            type: 'POST',
+            url: '{% url "cart:cart_update" %}',
+            data: {
+                productid: $(this).data('index'),
+                productqty: $('#select' + prodid + ' option:selected').text(),
+                csrfmiddlewaretoken: "{{csrf_token}}",
+                action: 'post'
+            },
+
+            success: function (json) {
+                document.querySelector('#cart-qty').innerHTML = json.qty
+                document.querySelector('#subtotal').innerHTML = json.subtotal
+                
+            },
+            error: function(xhr, errmsg, err) {}
+        });
+    })
+</script>
+
+{% endblock %}

@@ -9,3 +9,7 @@ venv
 db.sqlite3
 .coverage
 .DS_STORE
+
+
+
+node_modules
