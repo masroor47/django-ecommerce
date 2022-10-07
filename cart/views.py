@@ -7,7 +7,7 @@ from .cart import Cart
 def cart_summary(request):
     cart = Cart(request)
     context = {'cart': cart}
-    return render(request, 'store/cart/summary.html', context)
+    return render(request, 'cart/summary.html', context)
 
 
 def cart_add(request):

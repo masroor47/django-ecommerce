@@ -16,31 +16,30 @@
     <header class="flex justify-between items-center bg-blue-200">
         <a href="{% url 'store:product_all' %}">BookStore</a>
 
-            <ul class="flex flex-col items-center">
-                <a href="#">Library</a>
-                <ul class="flex">
-                    <li class="p-4"><a href="">All</a></li>
-                    {% for c in categories %}
-                    <li class="p-4"><a href="{{ c.get_absolute_url }}">{{ c.name|title }}</a></li>
-                    {% endfor %}
-                </ul>
+        <ul class="flex flex-col items-center">
+            <a href="#">Library</a>
+            <ul class="flex">
+                <li class="p-4"><a href="">All</a></li>
+                {% for c in categories %}
+                <li class="p-4"><a href="{{ c.get_absolute_url }}">{{ c.name|title }}</a></li>
+                {% endfor %}
             </ul>
-        <div>
-            <a href="#">Sign Up</a>
+        </ul>
+        <div class="flex items-center">
+            <a href="#" class="p-4">Sign Up</a>
             
-            <a href="{% url 'cart:cart_summary' %}">
-
+            <a href="{% url 'cart:cart_summary' %}" class="flex p-4">
+                <div>Cart:</div>
                 {% with total_qty=cart|length %}
-                    <div id="cart-qty">
+                    <span id="cart-qty">
                         {% if total_qty > 0 %}
                             {{ total_qty }}
                         {% else %}
                             0
                         {% endif %}
-                    </div>
+                    </span>
                 {% endwith %}
                 
-                Cart
             </a>
         </div>
     </header>
