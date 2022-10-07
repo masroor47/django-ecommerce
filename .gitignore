@@ -6,6 +6,7 @@
 .vscode
 __pycache__
 venv
+olddb.sqlite3
 db.sqlite3
 .coverage
 .DS_STORE
