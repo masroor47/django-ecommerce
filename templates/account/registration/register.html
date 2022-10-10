@@ -1,0 +1,40 @@
+{% extends "../../store/base.html" %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+
+    <form class="account-form" action="." method="post">
+        {% csrf_token %} 
+        <h3>Create an account</h3>
+
+        {% if form.errors %}
+            <p>Please correct the following errors:</p>
+            {% for field in form %}
+                {% if field.errors %}
+                <div class="" role="alert">
+                    {{ field.label }}: {{ field.errors|striptags }}
+                </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+
+        <label>{{ form.user_name.label }}<span>(Required)</span></label>
+        {{ form.user_name }}
+        <label>{{ form.email.label }}<span>(Required)</span></label>
+        {{ form.email }}
+        <label>{{ form.password.label }}<span>(Required)</span></label>
+        <small>At least 8 characters and 1 digit</small>
+        {{ form.password }}
+        <label>{{ form.password.label }}<span>(Required)</span></label>
+        {{ form.password2 }}
+        <button class="" type="submit">Register</button>
+
+        {% comment %} <p><a href="{% url 'account:login' %}">Already have an account?</a></p> {% endcomment %}
+
+
+
+    </form>
+
+
+{% endblock %}
